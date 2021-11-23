@@ -22,3 +22,7 @@ config/tunnel.pid
 
 # shopify setting
 .shopify-cli.yml
+
+# vscode/debug
+.vscode/launch.json
+
