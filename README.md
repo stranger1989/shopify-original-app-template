@@ -22,6 +22,14 @@ launch server
 ```shell
 shopify app serve
 ```
+## Local Tunnel
+
+Instead of ngrok to avoid connection limit.
+
+```
+lt --port 8081 --subdomain <SUB_DOMAIN>
+```
+
 ## License
 
 This respository is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
