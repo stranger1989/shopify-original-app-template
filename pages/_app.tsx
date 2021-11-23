@@ -9,6 +9,7 @@ import { Redirect } from "@shopify/app-bridge/actions";
 import "@shopify/polaris/dist/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import { ClientApplication } from "@shopify/app-bridge";
+import ClientRouter from "../components/ClientRouter";
 
 // eslint-disable-next-line shopify/prefer-module-scope-constants
 declare let API_KEY: string;
@@ -61,7 +62,8 @@ export default function MyApp(props: AppProps & { host?: string }) {
           forceRedirect: true,
         }}
       >
-        <MyProvider Component={Component} {...pageProps} />
+        <ClientRouter />
+        <MyProvider Component={Component} {...pageProps} host={host} />
       </Provider>
     </AppProvider>
   );
