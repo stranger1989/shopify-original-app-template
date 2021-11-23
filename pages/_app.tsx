@@ -1,29 +1,30 @@
-import React from "react";
-import { AppContext, AppProps } from "next/app";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
-import { AppProvider } from "@shopify/polaris";
-import { Provider, useAppBridge } from "@shopify/app-bridge-react";
-import { authenticatedFetch } from "@shopify/app-bridge-utils";
-import { Redirect } from "@shopify/app-bridge/actions";
-import "@shopify/polaris/dist/styles.css";
-import translations from "@shopify/polaris/locales/en.json";
-import { ClientApplication } from "@shopify/app-bridge";
-import ClientRouter from "../components/ClientRouter";
+import React from 'react';
+import { AppContext, AppProps } from 'next/app';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import { AppProvider } from '@shopify/polaris';
+import { Provider, useAppBridge } from '@shopify/app-bridge-react';
+import { authenticatedFetch } from '@shopify/app-bridge-utils';
+import { Redirect } from '@shopify/app-bridge/actions';
+import '@shopify/polaris/dist/styles.css';
+import translations from '@shopify/polaris/locales/en.json';
+import { ClientApplication } from '@shopify/app-bridge';
+
+import ClientRouter from '../components/ClientRouter';
 
 // eslint-disable-next-line shopify/prefer-module-scope-constants
 declare let API_KEY: string;
 
-function userLoggedInFetch(app: ClientApplication<any>) {
+function userLoggedInFetch(app: ClientApplication<unknown>) {
   const fetchFunction = authenticatedFetch(app);
 
   return async (uri: RequestInfo, options?: RequestInit) => {
     const response = await fetchFunction(uri, options);
     if (
-      response.headers.get("X-Shopify-API-Request-Failure-Reauthorize") === "1"
+      response.headers.get('X-Shopify-API-Request-Failure-Reauthorize') === '1'
     ) {
       const authUrlHeader = response.headers.get(
-        "X-Shopify-API-Request-Failure-Reauthorize-Url"
+        'X-Shopify-API-Request-Failure-Reauthorize-Url',
       );
       const redirect = Redirect.create(app);
       redirect.dispatch(Redirect.Action.APP, authUrlHeader || `/auth`);
@@ -38,7 +39,7 @@ function MyProvider(props: AppProps) {
   const client = new ApolloClient({
     fetch: userLoggedInFetch(app),
     fetchOptions: {
-      credentials: "include",
+      credentials: 'include',
     },
   });
 
@@ -58,7 +59,7 @@ export default function MyApp(props: AppProps & { host?: string }) {
       <Provider
         config={{
           apiKey: API_KEY,
-          host: host ?? "",
+          host: host ?? '',
           forceRedirect: true,
         }}
       >
