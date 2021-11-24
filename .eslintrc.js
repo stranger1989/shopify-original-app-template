@@ -15,13 +15,14 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'import/no-unresolved': 'off',
-    'no-console': 'warn',
-    'no-alert': 'warn',
-    'no-process-env': 'off',
-    'babel/object-curly-spacing': 'off',
-    '@typescript-eslint/camelcase': 'off',
-    'require-atomic-updates': 'off',
+    'import/no-unresolved': 0,
+    'no-process-env': 0,
+    'babel/object-curly-spacing': 0,
+    'require-atomic-updates': 0,
+    '@typescript-eslint/camelcase': 0,
+    'no-console': 1,
+    'no-alert': 1,
+    '@typescript-eslint/no-explicit-any': 1,
   },
   overrides: [
     {

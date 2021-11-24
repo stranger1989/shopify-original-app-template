@@ -11,6 +11,7 @@ import Shopify, { ApiVersion } from '@shopify/shopify-api';
 import { Session } from '@shopify/shopify-api/dist/auth/session';
 
 import routes from './router/index';
+import { updateTheme } from './updateTheme/updateTheme';
 
 dotenv.config();
 const port = parseInt(process.env.PORT ?? '', 10) || 8081;
@@ -90,6 +91,8 @@ app.prepare().then(async () => {
             `Failed to register APP_UNINSTALLED webhook: ${response.result}`,
           );
         }
+        console.log('Start updating theme');
+        updateTheme(shop, accessToken);
         // Redirect to app with shop parameter upon auth
         ctx.redirect(`/?shop=${shop}&host=${host}`);
       },
